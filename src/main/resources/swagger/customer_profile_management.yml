@@ -1,0 +1,204 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Customer Profile Management API
+  description: This API service is to Manage Customer Profile
+  contact:
+    email: "thiyagarajan.rajkumar@qantas.com.au"
+    
+paths:
+  /customer:
+    post:
+      summary: Creates a Customer Profile in CRM System.
+      tags:
+      - Customer Profile Creation
+      operationId: addCustomer
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: customer
+        in: body
+        description: Customer Profile Creation payLoad
+        required: true
+        schema:
+          $ref: '#/definitions/customer'
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Response'
+        '400':
+          description: Invalid Customer supplied
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: system error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '424':
+          description: dependency failure
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /customer/{customerId}:
+    put:
+      summary: Updates a Customer Profile by customerId in CRM System.
+      tags:
+      - Customer Profile Update
+      operationId: updateCustomer
+      consumes:
+      - application/json
+      parameters:
+      - name: customer
+        in: body
+        description: Customer Profile Update payLoad
+        schema:
+          $ref: '#/definitions/customer'
+      - name: customerId
+        in: path
+        description: Numeric ID of the Customer to Update Profile
+        required: true
+        type: integer
+        minimum: 1
+      responses:
+        '204':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Response'
+        '400':
+          description: Invalid Customer supplied
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Customer Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: system error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '424':
+          description: dependency failure
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+    
+    delete:
+      summary: Deletes a Customer Profile by customerId in CRM System.
+      tags:
+      - Customer Profile Delete
+      operationId: removeCustomer
+      parameters:
+      - name: customerId
+        in: path
+        description: Numeric ID of the Customer to Delete Profile
+        required: true
+        type: integer
+        minimum: 1
+      responses:
+        '204':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Response'
+        '400':
+          description: Invalid Customer supplied
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '404':
+          description: Customer Not Found
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '500':
+          description: system error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '424':
+          description: dependency failure
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+                    
+definitions:
+  customer:
+    type: object
+    description: Post request to create customer profile in CRM
+    required:
+    - firstName
+    - lastName
+    - email
+    - homeAddress
+    properties:
+      customerId:
+        type: integer
+      firstName:
+        type: string
+        pattern: "^[A-Za-z '’\\-]+$"
+        example: "John"
+      lastName:
+        type: string
+        pattern: "^[A-Za-z '’\\-]+$"
+        example: "Mathew"
+      dateOfBirth:
+        type: string
+        pattern: '([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'
+        example: "1990-01-01"
+      homeAddress:
+        $ref: '#/definitions/address'
+      officeAddress:
+        $ref: '#/definitions/address'
+      email:
+        type: string
+        pattern: '^(.+)@(.+)$'
+        example: "test@mail.com"
+        
+  address:
+    type: object
+    description: Address of the Customer
+    required:
+    - unitNumber
+    - street
+    - city
+    - state
+    - postalCode
+    - country
+    properties:
+      unitNumber:
+        type: string
+        example: "123"
+      street:
+        type: string
+        example: "zulu street"
+      city:
+        type: string
+        example: "sydney"
+      state:
+        type: string
+        example: "NSW"
+      postalCode:
+        type: number
+        pattern: '^[0-9]+$'
+        minLength: 4
+        maxLength: 4
+        example: 2060
+      country:
+        type: string
+        example: "Australia"
+
+  ErrorResponse:
+    type: object
+    properties:
+      errorCode:
+        type: string
+      errorName:
+        type: string
+      errorMessage:
+        type: string
+      errorDescription:
+        type: string
+  Response:
+    type: object
+    properties:
+      customerId:
+        type: integer
+      status:
+        type: string

@@ -1,0 +1,44 @@
+spring:
+  profiles.active: local-sandbox
+
+security.oauth2.resource.id: oauth2_application
+access_token.validity_period: 5
+refresh_token.validity_period: 100
+---
+spring:
+  profiles: local-sandbox
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+config:
+  crmApiGatewayBaseUrl: http://localhost:8080/crmapi
+  customerFindByIdUrl: /customer/{customerId}
+  customerCreateUrl: /customer
+  customerUpdateUrl: /customer/{customerId}
+  customerDeleteUrl: /customer/{customerId}
+---
+spring:
+  profiles: dev
+config:
+  crmApiGatewayBaseUrl: http://localhost:8080/crmapi-dev
+  customerCreateUrl: /customer
+  customerUpdateUrl: /customer/{customerId}
+  customerDeleteUrl: /customer/{customerId}
+---
+spring:
+  profiles: staging
+config:
+  crmApiGatewayBaseUrl: http://localhost:8080/crmapi-stg
+  customerCreateUrl: /customer
+  customerUpdateUrl: /customer/{customerId}
+  customerDeleteUrl: /customer/{customerId}
+---
+spring:
+  profiles: production
+config:
+  crmApiGatewayBaseUrl: http://localhost:8080/crmapi-prd
+  customerCreateUrl: /customer
+  customerUpdateUrl: /customer/{customerId}
+  customerDeleteUrl: /customer/{customerId}

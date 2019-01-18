@@ -1,0 +1,14 @@
+{
+  "firstName": "test",
+  "lastName": "rrr",
+  "dateOfBirth": "1988-12-01",
+  "homeAddress": {
+    "unitNumber": "1234",
+    "street": "string",
+    "city": "string",
+    "state": "string",
+    "postalCode": 123,
+    "country": "string"
+  },
+  "email": "test@gmail.com"
+}
