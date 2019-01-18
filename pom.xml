@@ -203,7 +203,6 @@
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<?m2e execute onConfiguration?>
 						<id>add-test-source</id>
 						<phase>process-sources</phase>
 						<goals>
@@ -217,7 +216,6 @@
 						</configuration>
 					</execution>
 					<execution>
-						<?m2e execute onConfiguration?>
 						<id>add-source</id>
 						<phase>generate-sources</phase>
 						<goals>
@@ -237,7 +235,6 @@
 				<version>2.3.1</version>
 				<executions>
 					<execution>
-                    	<?m2e execute onConfiguration?>
 						<id>generate-customer-profile-management-model</id>
 						<goals>
 							<goal>generate</goal>
@@ -261,7 +258,6 @@
 				<artifactId>maven-clean-plugin</artifactId>
 				<executions>
 					<execution>
-                    	<?m2e execute onConfiguration?>
 						<id>cleanup-swagger-gen</id>
 						<phase>generate-sources</phase>
 						<goals>
