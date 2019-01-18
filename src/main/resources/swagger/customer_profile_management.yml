@@ -4,7 +4,7 @@ info:
   title: Customer Profile Management API
   description: This API service is to Manage Customer Profile
   contact:
-    email: "thiyagarajan.rajkumar@qantas.com.au"
+    email: "thiyagarajan.rajkumar@test.com"
     
 paths:
   /customer:
