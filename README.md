@@ -17,48 +17,28 @@
 	java -version
 ```
 
-## Running check style
-Code has been formatted with Google code formatter and refactored with checkstyle
-	
+
+## To run application
 ```
 	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
-	mvn clean compile jxr:jxr checkstyle:checkstyle
+	mvn clean spring-boot:run
 ```
-Snapshot of Checkstyle result:
 
-![picture](checkstyle_results.PNG "CheckStyle result")
-
-## Running tests
-```
-	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
-	Unit tests -> mvn clean test
-	Integration tests -> mvn -Dtest=*IT.java clean test
-	All tests -> mvn clean verify
-```
-For running tests this project uses maven defaults
- - Unit test ends with `*Test.java`
- - Integration tests ends with `*IT.java`
-
-## Running Clover
-To check the code coverage of Tests, execute the below command.
-
-either we can use Clover or Build-in Coverage tool
+## Package and run application
+To create package and run application by skipping all tests, use the below command.
 
 ```
 	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
-	mvn clover:check -Dmaven.clover.targetPercentage=65%
+	mvn clean package -Dmaven.test.skip
+	java -jar target\customerprofilemanagement*.war
 ```
-Snapshot of Coverage Dashboard: 65.9% covered
-![picture](code_coverage.PNG "Coverage Result")
+## How to test services
+API can be tested in 2 ways.
+1. Through swagger UI
+2. via Postman
 
-## Running Sonar
-To check static code analysis,
-
-```
-	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
-	mvn clean verify sonar:sonar
-```
-![picture](Sonar_Qube.PNG "Sonar Result")
+We can achieve security mechanism through couple of ways.  Here in this project, Oauth has been implemented to safeguard from un-authorized users.
+There is an alternate way to ensure security.  We can use an existing api which is available api-store. We have to subscribe and use it. 
 
 ## SWAGGER API Contract Definition
 
@@ -82,25 +62,6 @@ To test application through Swagger UI, the following lines has to be commented 
 ```
 save & re-run the application after making the above mentioned changes.
 
-
-## To run application
-```
-	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
-	mvn clean spring-boot:run
-```
-
-## Package and run application
-To create package and run application by skipping all tests, use the below command.
-
-```
-	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
-	mvn clean package -Dmaven.test.skip
-	java -jar target\customerprofilemanagement*.war
-```
-## How to test services
-We can achieve security mechanism through couple of ways.  Here in this project, Oauth has been implemented to safeguard from un-authorized users.
-There is an alternate way to ensure security.  We can use an existing api which is available api-store. We have to subscribe and use it. 
-
 ## Using Postman
 
 Generate Oauth Token:
@@ -116,7 +77,7 @@ If you are using postman, follow the below procedure.
 under body tab, select x-www-form-urlencoded radio button and provide the below form fields
 	
 ```
-	grant_type: password
+	grant_type: password OR client_credentials
 	username: testuser1 or testuser2
 	password: password1 or password2 
 ```
@@ -203,6 +164,49 @@ Replace <TOKEN> with the token
 	   } \ 
 	 }' 'http://localhost:8080/customer'
 ```
+
+## Running check style
+Code has been formatted with Google code formatter and refactored with checkstyle
+	
+```
+	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
+	mvn clean compile jxr:jxr checkstyle:checkstyle
+```
+Snapshot of Checkstyle result:
+
+![picture](checkstyle_results.PNG "CheckStyle result")
+
+## Running tests
+```
+	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
+	Unit tests -> mvn clean test
+	Integration tests -> mvn -Dtest=*IT.java clean test
+	All tests -> mvn clean verify
+```
+For running tests this project uses maven defaults
+ - Unit test ends with `*Test.java`
+ - Integration tests ends with `*IT.java`
+
+## Running Clover
+To check the code coverage of Tests, execute the below command.
+
+either we can use Clover or Build-in Coverage tool
+
+```
+	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
+	mvn clover:check -Dmaven.clover.targetPercentage=65%
+```
+Snapshot of Coverage Dashboard: 65.9% covered
+![picture](code_coverage.PNG "Coverage Result")
+
+## Running Sonar
+To check static code analysis,
+
+```
+	cd <project_directory> (for example: cd d:/customerprofilemanagement/)
+	mvn clean verify sonar:sonar
+```
+![picture](Sonar_Qube.PNG "Sonar Result")
 
 ## Technical Flow Diagram
 
