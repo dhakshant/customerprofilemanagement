@@ -37,8 +37,8 @@ API can be tested in 2 ways.
 1. Through swagger UI
 2. via Postman
 
-We can achieve security mechanism through couple of ways.  Here in this project, Oauth has been implemented to safeguard from un-authorized users.
-There is an alternate way to ensure security.  We can use an existing api which is available api-store. We have to subscribe and use it. 
+We can achieve security mechanism through couple of ways.  Here in this project, Oauth has been implemented along with Jwt to safeguard from un-authorized users.
+There is an alternate way to ensure security.  We can use an existing api which is available in api-store. We have to subscribe and use it. 
 
 ## SWAGGER API Contract Definition
 
