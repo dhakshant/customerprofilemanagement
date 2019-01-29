@@ -10,7 +10,8 @@ public class CustomerControllerIT extends IntegrationTestBase {
 
 	@Test
     public void addCustomer_shouldReturn200ForValidRequest() {
-		String accessToken = given()
+		String accessToken = 
+		given()
 			 .urlEncodingEnabled(true)
 			.param("grant_type", "password")
 			.param("username", "testuser2")

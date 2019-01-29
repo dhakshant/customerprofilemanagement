@@ -4,14 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.qant.customerprofilemanagement.configuration.ApplicationConfig;
 import com.qant.customerprofilemanagement.exception.CustomerNotFoundException;
 import com.qant.customerprofilemanagement.exception.DependencyFailureException;
 import com.qant.customerprofilemanagement.model.Customer;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,8 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 public class CustomerService {
 
-	private RestTemplate restTemplate;
-	private ApplicationConfig config;
+	private CrmApi crmApi;
 
 	@HystrixCommand(fallbackMethod = "addCustomerFallback",
 			commandProperties = {
@@ -40,10 +36,7 @@ public class CustomerService {
 	public Integer addCustomer(final Customer customer) {
 		log.info("Entered into addCustomer() method of CustomerService class");
 		try {
-			return restTemplate.postForEntity(
-					config.getCrmApiGatewayBaseUrl().concat(
-							config.getCustomerCreateUrl()),
-					customer, Customer.class).getBody().getCustomerId();
+			return crmApi.addCustomer(customer).getCustomerId();
 		} catch (HttpClientErrorException e) {
 			throw new CustomerNotFoundException();
 		}
@@ -75,14 +68,11 @@ public class CustomerService {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("customerId", customerId);
 		try {
-			restTemplate.getForObject(
-					config.getCrmApiGatewayBaseUrl()
-					.concat(config.getCustomerFindByIdUrl()), Customer.class, params);
+			crmApi.findCustomer(params);
 		} catch (HttpClientErrorException e) {
 			throw new CustomerNotFoundException();
 		}
-		restTemplate.put(config.getCrmApiGatewayBaseUrl().concat(
-				config.getCustomerUpdateUrl()),	customer, params);
+		crmApi.updateCustomer(customer, params);
 		log.info("Exitting from updateCustomer() method of CustomerService class");
 	}
 
@@ -112,15 +102,11 @@ public class CustomerService {
 		Map<String, Integer> params = new HashMap<>();
 		params.put("customerId", customerId);
 		try {
-			restTemplate.getForObject(
-					config.getCrmApiGatewayBaseUrl().concat(
-							config.getCustomerFindByIdUrl()),
-					Customer.class, params);
+			crmApi.findCustomer(params);
 		} catch (HttpClientErrorException e) {
 			throw new CustomerNotFoundException();
 		}
-		restTemplate.delete(config.getCrmApiGatewayBaseUrl()
-				.concat(config.getCustomerDeleteUrl()), params);
+		crmApi.removeCustomer(params);
 		log.info("Entered into removeCustomer() method of CustomerService class");
 	}
 

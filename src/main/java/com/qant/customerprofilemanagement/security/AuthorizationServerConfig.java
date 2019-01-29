@@ -42,14 +42,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	private static final String REFRESH_TOKEN = "refresh_token";
 	private static final String ROLE_TRUSTED_CLIENT = "ROLE_TRUSTED_CLIENT";
 	private static final String SECRET = "secret";
-	private static final String TRUST = "trust";
-	private static final String REGISTER_APP = "register-app";
-	private static final String ROLE_REGISTER = "ROLE_REGISTER";
-	private static final String CLIENT_REGISTERED = "my-client-with-registered-redirect";
 	private static final String AUTHORIZATION_CODE = "authorization_code";
 	private static final String ROLE_CLIENT = "ROLE_CLIENT";
-	private static final String RESOURCEIDS = "oauth2-resource";
-	private static final String REDIRECT_URIS = "http://anywhere?key=value";
+	private static final String REDIRECT_URIS = "http://example.com/errorscreen.html";
 
 	@Value("${security.oauth2.resource.id}")
 	private String resourceId;
@@ -94,14 +89,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.resourceIds(resourceId)
 				.accessTokenValiditySeconds(accessTokenValiditySeconds)
 				.refreshTokenValiditySeconds(refreshTokenValiditySeconds)
-				.secret(SECRET).and()
-				.withClient(REGISTER_APP).authorizedGrantTypes(CLIENT_CREDENTIALS)
-				.authorities(ROLE_REGISTER)
-				.scopes(READ).resourceIds(resourceId).secret(SECRET).and()
-				.withClient(CLIENT_REGISTERED)
-				.authorizedGrantTypes(AUTHORIZATION_CODE)
-				.authorities(ROLE_CLIENT).scopes(READ, TRUST)
-				.resourceIds(RESOURCEIDS)
+				.secret(SECRET)
 				.redirectUris(REDIRECT_URIS);
 	}
 
@@ -132,6 +120,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 		defaultTokenServices.setTokenStore(tokenStore());
 		defaultTokenServices.setSupportRefreshToken(true);
+		//comment below line to generate Oauth type token.
 		defaultTokenServices.setTokenEnhancer(accessTokenConverter());
 		return defaultTokenServices;
 	}

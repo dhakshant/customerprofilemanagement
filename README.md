@@ -208,7 +208,7 @@ Replace <TOKEN> with the token
 
  - Request received from mobile app and web channel are identified by "User-Agent" param in the header.
 
- - Oauth token expiry time can be configured according to the the chennel type.  Mobile App can have longer active time token than web channel.
+ - Oauth token expiry time can be configured according to the chennel type.  Mobile App can have longer active time token than web channel.
   
-![picture](Technical_Design.PNG "Clover Result")
+![picture](Technical_Design.PNG "Technical Design")
 

@@ -69,7 +69,7 @@ public class Application {
 			try {
 				accountService.register(acct);
 			} catch (AccountException e) {
-				log.error("AccountException: "+e.getMessage());
+				log.error("AccountException: " + e.getMessage());
 			}
 		});
 	}

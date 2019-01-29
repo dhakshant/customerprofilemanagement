@@ -20,8 +20,8 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceConfig extends ResourceServerConfigurerAdapter {
 
-	private static final String MOCK_CRMAPI_URL = "/crmapi**";
-	private static final String CUSTOMER_URL = "/customer**";
+	private static final String UNAUTHENTICATED_URL = "/crmapi**";
+	private static final String AUTHENTICATED_URLS = "/customer**";
 	private static final String ROLE_USER = "hasAnyRole('USER')";
 
 	@Value("${security.oauth2.resource.id}")
@@ -42,8 +42,8 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
 	public void configure(final HttpSecurity http) throws Exception {
 		http.requestMatcher(new OAuthRequestedMatcher()).anonymous().disable().authorizeRequests()
 				.antMatchers(HttpMethod.OPTIONS).permitAll()
-				.antMatchers(MOCK_CRMAPI_URL).permitAll()
-				.antMatchers(CUSTOMER_URL).access(ROLE_USER);
+				.antMatchers(UNAUTHENTICATED_URL).permitAll()
+				.antMatchers(AUTHENTICATED_URLS).access(ROLE_USER);
 	}
 
 	private static class OAuthRequestedMatcher implements RequestMatcher {

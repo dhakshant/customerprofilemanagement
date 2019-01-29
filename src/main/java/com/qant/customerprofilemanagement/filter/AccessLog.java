@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Builder
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonNaming(SnakeCaseStrategy.class)
 @JsonInclude(value = Include.NON_NULL)
+@ToString
 public class AccessLog {
 	private String srcIp;
 	private String xForwardedFor;
@@ -28,6 +30,4 @@ public class AccessLog {
 	private String userAgent;
 	private String contentType;
 	private String referer;
-	private String endUserIp;
-	private String geoLocation;
 }

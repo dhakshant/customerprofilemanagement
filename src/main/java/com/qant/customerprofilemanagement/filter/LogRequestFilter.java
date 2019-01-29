@@ -1,7 +1,5 @@
 package com.qant.customerprofilemanagement.filter;
 
-import static net.logstash.logback.marker.Markers.appendFields;
-
 import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
@@ -12,17 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.MDC;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Order(1)
 @Component
-@ConditionalOnProperty(value = "enableLogRequestFilter", havingValue = "true")
 public class LogRequestFilter extends OncePerRequestFilter {
 
 	private static final String X_CORRELATION_ID = "X-Correlation-Id";
@@ -52,7 +46,7 @@ public class LogRequestFilter extends OncePerRequestFilter {
 		long start = System.currentTimeMillis();
 		filterChain.doFilter(request, response);
 		final AccessLog accessLog = createAccessLog(request, response, start);
-		log.info(appendFields(accessLog), null);
+		log.info(accessLog.toString());
 	}
 
 	protected AccessLog createAccessLog(final HttpServletRequest request,

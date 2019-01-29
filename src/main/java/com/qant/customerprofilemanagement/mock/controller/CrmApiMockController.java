@@ -49,20 +49,20 @@ public class CrmApiMockController {
 			Optional<Customer> optCustomer = customerMap.entrySet().stream()
 					.filter(entry -> entry.getKey().equals(customerId))
 					.map(Map.Entry::getValue).findAny();
-			if(optCustomer.isPresent()) {
+			if (optCustomer.isPresent()) {
 				return new ResponseEntity<>(optCustomer.get(), HttpStatus.OK);
-			}			
+			}
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);	
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 	}
 
 	@PutMapping(path = "/crmapi/customer/{customerId}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> updateCustomerById(
 			@PathVariable("customerId") final Integer customerId,
 			@RequestBody final Customer customer) {
-		if(customerMap.entrySet().stream()
+		if (customerMap.entrySet().stream()
 				.filter(entry -> entry.getKey().equals(customerId))
 				.map(Map.Entry::getValue).findAny().isPresent()) {
 			customer.setCustomerId(customerId);

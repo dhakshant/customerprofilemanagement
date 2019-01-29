@@ -35,7 +35,7 @@ public class CpmControllerExceptionHandler {
 
 	@ResponseBody
 	@ExceptionHandler(value = { ConstraintViolationException.class })
-	public ResponseEntity<ErrorResponse> handleApplicationException(
+	public ResponseEntity<ErrorResponse> handleConstraintViolationException(
 			final ConstraintViolationException cve) {
 		log.error("In ConstraintViolationException exception handler");
 		final String errorMessage = cve.getConstraintViolations().stream()

@@ -140,13 +140,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.17</version>
-				<dependencies>
-					<dependency>
-						<groupId>com.puppycrawl.tools</groupId>
-						<artifactId>checkstyle</artifactId>
-						<version>8.11</version>
-					</dependency>
-				</dependencies>
 				<configuration>
 					<configLocation>checkstyle.xml</configLocation>
 					<consoleOutput>true</consoleOutput>
@@ -167,7 +160,6 @@
 							</sourceDirectories>
 						</configuration>
 						<goals>
-							<goal>checkstyle</goal>
 							<goal>check</goal>
 						</goals>
 					</execution>
@@ -203,6 +195,7 @@
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<executions>
 					<execution>
+						<?m2e execute onConfiguration?>
 						<id>add-test-source</id>
 						<phase>process-sources</phase>
 						<goals>
@@ -216,6 +209,7 @@
 						</configuration>
 					</execution>
 					<execution>
+						<?m2e execute onConfiguration?>
 						<id>add-source</id>
 						<phase>generate-sources</phase>
 						<goals>
@@ -235,6 +229,7 @@
 				<version>2.3.1</version>
 				<executions>
 					<execution>
+						<?m2e execute onConfiguration?>
 						<id>generate-customer-profile-management-model</id>
 						<goals>
 							<goal>generate</goal>
@@ -258,6 +253,7 @@
 				<artifactId>maven-clean-plugin</artifactId>
 				<executions>
 					<execution>
+						<?m2e execute onConfiguration?>
 						<id>cleanup-swagger-gen</id>
 						<phase>generate-sources</phase>
 						<goals>

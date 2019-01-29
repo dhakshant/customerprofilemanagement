@@ -18,7 +18,6 @@ public final class Constants {
 	public static final int DEFAULT_READ_TIMEOUT = 30000;
 	public static final int DEFAULT_CONNECT_TIMEOUT = 3000;
 	public static final String STRING = "String";
-	public static final String IMS_TOKEN = "IMS_TOKEN";
 	public static final String REGION_CODE = "regionCode";
 	public static final int ONE = 1;
 	public static final String USERNAMES = "testuser1,testuser2";
